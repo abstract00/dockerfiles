@@ -1,0 +1,8 @@
+jupyterlab
+matplotlib
+pandas
+pandas-datareader
+scikit-learn
+scipy
+seaborn
+xlrd
