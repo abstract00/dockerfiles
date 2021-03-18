@@ -8,7 +8,15 @@ RUN apt-get update && \
 		python3-pip
 
 RUN pip3 install -U pip && \
-	pip3 install -r requirements.txt
+	pip3 install \
+		jupyterlab \
+		matplotlib \
+		pandas \
+		pandas-datareader \
+		scikit-learn \
+		scipy \
+		seaborn \
+		xlrd
 
 RUN wget https://moji.or.jp/wp-content/ipafont/IPAexfont/ipaexg00401.zip && \
 	unzip /ipaexg00401.zip && \
