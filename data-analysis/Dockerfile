@@ -16,7 +16,8 @@ RUN pip3 install -U pip && \
 		scikit-learn \
 		scipy \
 		seaborn \
-		xlrd
+		xlrd \
+		openpyxl
 
 RUN wget https://moji.or.jp/wp-content/ipafont/IPAexfont/ipaexg00401.zip && \
 	unzip /ipaexg00401.zip && \
