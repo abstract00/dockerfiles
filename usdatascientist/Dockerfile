@@ -1,34 +1,34 @@
 FROM ubuntu:20.04
-
-# update
+ 
 RUN apt-get -y update && apt-get install -y \
+	sudo \
+	unzip \	
+	wget \
 	libsm6 \
 	libxext6 \
 	libxrender-dev \
 	libglib2.0-0 \
-	sudo \
-	wget \
-	vim \
 	libgl1-mesa-dev
-
-#install anaconda3
+ 
 WORKDIR /opt
 
-# download anaconda package and install anaconda
-# archive -> https://repo.continuum.io/archive/
-RUN wget https://repo.continuum.io/archive/Anaconda3-2020.02-Linux-x86_64.sh && \
-	sh /opt/Anaconda3-2020.02-Linux-x86_64.sh -b -p /opt/anaconda3 && \
-	rm -f Anaconda3-2020.02-Linux-x86_64.sh
+RUN wget https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh && \
+	sh /opt/Anaconda3-2020.11-Linux-x86_64.sh -b -p /opt/anaconda3 && \
+	rm -f Anaconda3-2020.11-Linux-x86_64.sh
 
-# set path
 ENV PATH /opt/anaconda3/bin:$PATH
 
-# update pip and install packages
+RUN wget https://moji.or.jp/wp-content/ipafont/IPAexfont/ipaexg00401.zip && \
+	unzip ipaexg00401.zip && \
+	rm -r -f ipaexg00401.zip && \
+	mv ipaexg00401/ipaexg.ttf \
+		/opt/anaconda3/lib/python3.8/site-packages/matplotlib/mpl-data/fonts/ttf/ && \
+	rm -r -f ipaexg00401
+
 RUN pip install --upgrade pip && \
     pip install opencv-python && \
     pip install nibabel
 
 WORKDIR /work
-
-# execute jupyterlab as a default command
+ 
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--LabApp.token=''"]
